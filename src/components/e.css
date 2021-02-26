@@ -1,8 +1,13 @@
 .wholeWindow {
-    height: calc(100vh - 40px);
+    height: calc(100vh - 90px);
+    background-color: red;
 
 }
 .MuiPagination-ul {
     justify-content: center;
-    margin: 4px 0px!important;
+    margin: 5px 0px!important;
+}
+.MuiInputBase-root {
+    width: calc(100% - 48px);
+    padding: 2px 4px;
 }

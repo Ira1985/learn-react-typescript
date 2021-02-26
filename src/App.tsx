@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import ExpampleInterface from "./components/expampleInterface";
+import ExpampleInterface  from "./components/expampleInterface";
+import StartWin from "./components/StartWinComponent/StartWin";
 
 function App() {
   return (
     <div className="App">
-      <ExpampleInterface></ExpampleInterface>
+        <StartWin left={<ExpampleInterface/>}/>
     </div>
   );
 }

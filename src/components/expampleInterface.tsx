@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import axios, {AxiosResponse} from "axios";
+import React, {ChangeEvent, Component, MouseEventHandler} from 'react';
+import {API} from "../utils/AxiosAPI";
 import Movie from "../models/Movie";
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -10,17 +10,27 @@ import Grid from "@material-ui/core/Grid";
 import Pagination from '@material-ui/lab/Pagination';
 import CardActions from "@material-ui/core/CardActions";
 import Chip from "@material-ui/core/Chip";
+import Paper from "@material-ui/core/Paper";
+import InputBase from "@material-ui/core/InputBase";
+import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from "@material-ui/icons/Search";
+import {Theme} from "@material-ui/core/styles";
 
 import "./e.css";
 
 type ExpampleInterfaceState = {
     count: number,
-    items: Movie[]
+    items: Movie[],
+    totalPages: number,
+    page: number,
+    searchWord: string
 }
 
 type ExpampleInterfaceProps = {
 
 }
+
+const url: string = "discover/movie";
 
 class ExpampleInterface extends Component<ExpampleInterfaceProps, ExpampleInterfaceState>{
 
@@ -28,37 +38,84 @@ class ExpampleInterface extends Component<ExpampleInterfaceProps, ExpampleInterf
         super(props);
         this.state = {
             count: 0,
-            items: []
+            items: [],
+            page: 1,
+            totalPages: 0,
+            searchWord: ''
         }
+        this.changePages = this.changePages.bind(this);
+        this.handlerChangeSearch = this.handlerChangeSearch.bind(this)
+        this.searchMovies = this.searchMovies.bind(this)
     }
 
     componentDidMount(): void {
-        axios.interceptors.response.use(function<T> (response: any): T {
-            // Делаем что угодно с поступившими данными
-            return response;
-        }, function (error) {
-            // Обрабатываем ошибку
-            return Promise.reject(error);
-        });
-        axios({
-            method: "get",
-            url: "https://api.themoviedb.org/3/discover/movie",
-            headers: {
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYjk0MmRjNTRmZTkwY2ExNmQwN2QxNTEwNzFkYzY0YyIsInN1YiI6IjVmZDg4Nzk4ZGI5NTJkMDAzZDdlOGY2OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.57qKS4g2vWIauKakU3n0WmJX0Gy5y6D5Z8nw9MA7u8Y"
-            },
+        this.getMovies(this.state.page);
+        //fetch("https://api.themoviedb.org/3/discover/movie?api_key=00a1e64ecaa38fff3a8cdeab46c62451")
+    }
+
+    changePages(e: ChangeEvent<unknown>, page: number): void {
+        this.getMovies(page)
+    }
+
+    getMovies(page: number) {
+        API.get(url, {
             params: {
-                language: "ru"
+                language: "ru-RU",
+                page: page
             }
         })
             .then(request => {
-                let data: Movie[] = request.data.results;
-                this.setState({items: data})
+                console.log(request);
+                let data = request.data;
+                this.setState({
+                    items: data.results,
+                    totalPages: data.total_pages,
+                    page: page
+                })
             })
     }
 
+    searchMovies(): any {
+        //e.preventDefault();
+        console.log("searchMovies")
+
+    }
+
+    handlerChangeSearch(e: ChangeEvent<HTMLInputElement>): any {
+        let searchWord: string = e.currentTarget.value;
+        API.get("search/movie", {
+            params: {
+                language: "ru",
+                query: searchWord
+            }
+        })
+            .then(request => {
+                console.log(request)
+                let data = request.data;
+                this.setState({
+                    items: data.results,
+                    totalPages: data.total_pages,
+                    page: data.page
+                })
+            })
+        this.setState({
+            searchWord: searchWord
+        })
+    }
+
     render() {
-        let {items} = this.state;
+        let {items, totalPages, page} = this.state;
         return <div className={"wholeWindow"}>
+            <Paper component="form">
+                <InputBase
+                    placeholder="Search Movies"
+                    inputProps={{ 'aria-label': 'search google maps' }}
+                    onChange={this.handlerChangeSearch}
+                />
+                <IconButton type="submit" aria-label="search" onClick={this.searchMovies}>
+                    <SearchIcon />
+                </IconButton>
+            </Paper>
             <Grid container spacing={3} style={{margin: "0px", width: "100%", height: "100%", overflowY: "auto"}}>
                 {
                     items.map(item => {
@@ -86,7 +143,7 @@ class ExpampleInterface extends Component<ExpampleInterfaceProps, ExpampleInterf
                     })
                 }
             </Grid>
-            <Pagination count={10} showFirstButton showLastButton />
+            <Pagination count={totalPages} page={page} showFirstButton showLastButton onChange={this.changePages} />
         </div>
     }
 }
