@@ -1,0 +1,19 @@
+.big-box {
+  width: 72%;
+  height: 98%;
+  background-color: green;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.small-box {
+  width: 22%;
+  height: 98%;
+  background-color: green;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-right: 20px;
+}

@@ -6,7 +6,7 @@ import StartWin from "./components/StartWinComponent/StartWin";
 function App() {
   return (
     <div className="App">
-        <StartWin left={<ExpampleInterface/>}/>
+        <StartWin/>
     </div>
   );
 }

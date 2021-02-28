@@ -34,6 +34,8 @@
 }
 .content {
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 96%;
     height: 96%;
     background-color: #FFFFFF;
