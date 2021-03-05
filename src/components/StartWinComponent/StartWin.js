@@ -29,7 +29,6 @@ class StartWin extends Component{
     }
     render() {
         const {minimaizNavMenu, agree} = this.state;
-        console.log("state", this.state)
         return (
            <div className={"wholeWindow"}>
                <div className={minimaizNavMenu ? "minNavigationMenu" : "navigationMenu"}>

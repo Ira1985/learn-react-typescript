@@ -1,22 +1,25 @@
-import React, {Component} from "react";
+import React, {ChangeEvent, Component} from "react";
 import "./contentBox.scss"
+import Emploee from "../../models/Emploee";
+import Emploees from "../Emploee/Emploees";
 
 type ContentBoxProps = {
     contentClass: string,
-    header: string
+    header: string,
+    list: Emploee[],
+    handleCheck(e: ChangeEvent<HTMLInputElement>, item: Emploee): void,
+    //employee: Map<string, Emploee[]>
 }
 
 class ContentBox extends Component<ContentBoxProps>{
+
     render() {
         return (
             <div className={this.props.contentClass}>
-                <h5>{this.props.header}</h5>
-                <h5>{this.props.header}</h5>
-                <h5>{this.props.header}</h5>
-                <h5>{this.props.header}</h5>
-                <h5>{this.props.header}</h5>
-                <h5>{this.props.header}</h5>
-                <h5>{this.props.header}</h5>
+                <div>
+                    <h5>{this.props.header}</h5>
+                    {this.props.list.length ? this.props.list.map(emploee => <Emploees key={emploee.id} item={emploee} handleCheck={this.props.handleCheck}/>) : <span>...</span>}
+                </div>
             </div>
         );
     }
