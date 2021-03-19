@@ -7,6 +7,8 @@ import List from '@material-ui/core/List';
 import InputLabel from "@material-ui/core/InputLabel";
 import Switch from "@material-ui/core/Switch";
 import MainBox from "../MainBox/MainBox";
+import MainMarvelBox from "../MainMovieDbBox/MainMarvelBox";
+import ContentMovieBox from "../ContentMovieBox/ContentMovieBox";
 
 class StartWin extends Component{
     constructor(props) {
@@ -44,7 +46,7 @@ class StartWin extends Component{
                <div className={"contentWindow"}>
                    <div className={"content"}>
                        {/*<Switch name={"agree"} checked={agree} onChange={this.handlerChange}></Switch>*/}
-                       <MainBox/>
+                       <ContentMovieBox/>
 
                    </div>
                </div>

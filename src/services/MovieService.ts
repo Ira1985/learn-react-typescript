@@ -1,14 +1,22 @@
 import {API} from "../utils/AxiosAPI";
+import Movie from "../models/Movie";
 
 export const movieService = {
     getList
 }
 
-function getList(page: number = 0) {
-    return API.get("discover/movie", {
+type ResponseMovieDbType<T> = {
+    page: number,
+    total_results: number,
+    total_pages: number,
+    results: T[]
+}
+
+function getList<T>(page: number = 1, sort_by: string = "popularity.desc") {
+    return API.get<ResponseMovieDbType<T>>("discover/movie", {
         params: {
-            language: "ru-RU",
-            page: page
+            page: page,
+            sort_by: sort_by
         }
     })
         .then(res => {
@@ -20,8 +28,4 @@ function getList(page: number = 0) {
             }
             return null;
         })
-        .catch(error => {
-            console.log(error);
-            return error;
-        });
 }

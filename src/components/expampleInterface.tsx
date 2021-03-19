@@ -50,7 +50,6 @@ class ExpampleInterface extends Component<ExpampleInterfaceProps, ExpampleInterf
 
     componentDidMount(): void {
         this.getMovies(this.state.page);
-        //fetch("https://api.themoviedb.org/3/discover/movie?api_key=00a1e64ecaa38fff3a8cdeab46c62451")
     }
 
     changePages(e: ChangeEvent<unknown>, page: number): void {

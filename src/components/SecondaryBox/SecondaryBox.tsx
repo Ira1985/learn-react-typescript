@@ -5,7 +5,7 @@ import Emploee from "../../models/Emploee";
 
 type SecondaryBoxProps = {
     widthClass: string,
-    items: Emploee[],
+    items: Emploee[] | null,
     checkedItems: Map<string, Emploee[]>,
     handleCheck(e: ChangeEvent<HTMLInputElement>, item: Emploee): void,
 }
@@ -20,7 +20,7 @@ class SecondaryBox extends Component<SecondaryBoxProps>{
             <div className={this.props.widthClass}>
                 {this.props.widthClass === "big-box" ?
                 arr_EN.map(letter => {
-                    let arr = items.filter(item => item.lastName.charAt(0) === letter)
+                    let arr = items && items.filter(item => item.lastName.charAt(0) === letter)
                     return <ContentBox key={letter} contentClass={"big-content-box"} header={letter} list={arr} handleCheck={this.props.handleCheck}/>
                 }) :
                     Array.from(checkedItems.entries()).map(([key, value]) => {

@@ -1,0 +1,11 @@
+.item-box {
+  width: 22%;
+  min-height: 100px;
+  margin: 2px;
+  border: .1px solid #282c34;
+  border-radius: 10px;
+  .image-item {
+    width: 100%;
+    border-radius: 8px 8px 0px 0px;
+  }
+}
