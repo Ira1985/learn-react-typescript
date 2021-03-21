@@ -5,7 +5,9 @@ import Movie from "../../models/Movie";
 import {movieService} from "../../services/MovieService";
 
 type MainMovieDbBoxProps = {
-
+    filters: {
+        sort_by: string | undefined
+    }
 }
 
 type MainMovieDbBoxState = {
@@ -26,6 +28,16 @@ class MainMovieDbBox extends Component<MainMovieDbBoxProps, MainMovieDbBoxState>
         this.setState({
             items: results
         })
+    }
+
+    async componentDidUpdate(prevProps: Readonly<MainMovieDbBoxProps>) {
+        if(this.props.filters.sort_by !== prevProps.filters.sort_by) {
+            let response = await movieService.getList<Movie>(undefined, this.props.filters.sort_by);
+            let results = response ? response.results : []
+            this.setState({
+                items: results
+            })
+        }
     }
 
     render() {

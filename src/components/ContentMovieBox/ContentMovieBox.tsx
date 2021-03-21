@@ -38,7 +38,7 @@ class ContentMovieBox extends Component<ContentMovieBoxProps, ContentMovieBoxSta
 
         return <div className={"content-movie-box"}>
             <HeadContentBox filters={filters} handlerFilters={this.handlerFilters} />
-            <MainMovieDbBox/>
+            <MainMovieDbBox filters={filters}/>
             <FooterContentBox/>
         </div>;
     }
