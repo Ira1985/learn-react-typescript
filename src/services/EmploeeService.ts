@@ -10,7 +10,6 @@ function getList() {
         .then(res => {
             if(res && res.status === 200){
                 if(res.data){
-                    type i = typeof res.data[0]
                     return res.data;
                 }else
                     return null;

@@ -1,5 +1,4 @@
 import {API} from "../utils/AxiosAPI";
-import Movie from "../models/Movie";
 
 export const movieService = {
     getList

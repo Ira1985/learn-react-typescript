@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Component} from "react";
+import React, {ChangeEvent, MouseEvent, Component} from "react";
 import MainMovieDbBox from "../MainMovieDbBox/MainMarvelBox";
 import "./contentMovieBox.scss"
 import FooterContentBox from "../FootterContentBox/FooterContentBox";
@@ -12,7 +12,8 @@ type ContentMovieBoxState = {
     filters: {
         sort_by: string | undefined,
         [index: string]: string | undefined
-    }
+    },
+    page: number
 }
 
 class ContentMovieBox extends Component<ContentMovieBoxProps, ContentMovieBoxState>{
@@ -21,7 +22,8 @@ class ContentMovieBox extends Component<ContentMovieBoxProps, ContentMovieBoxSta
         this.state = {
             filters: {
                 sort_by: undefined
-            }
+            },
+            page: 1
         }
     }
 
@@ -33,13 +35,26 @@ class ContentMovieBox extends Component<ContentMovieBoxProps, ContentMovieBoxSta
         })
     }
 
+    handlerPlusePages =(e: MouseEvent<HTMLButtonElement>) => {
+        this.setState((prevState) => ({
+            page: prevState.page + 1
+        }))
+    }
+
+    handlerMinusPages =(e: MouseEvent<HTMLButtonElement>) => {
+
+        this.setState((prevState) => ({
+            page: prevState.page - 1
+        }))
+    }
+
     render() {
-        let {filters} = this.state;
+        let {filters, page} = this.state;
 
         return <div className={"content-movie-box"}>
             <HeadContentBox filters={filters} handlerFilters={this.handlerFilters} />
-            <MainMovieDbBox filters={filters}/>
-            <FooterContentBox/>
+            <MainMovieDbBox filters={filters} page={page}/>
+            <FooterContentBox page={page} handlerPlusePages={this.handlerPlusePages} handlerMinusPages={this.handlerMinusPages}/>
         </div>;
     }
 }

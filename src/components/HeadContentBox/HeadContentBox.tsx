@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Component, OptionHTMLAttributes} from "react";
+import React, {ChangeEvent, Component} from "react";
 import "./headContentBox.scss"
 
 type HeadContentBoxProps = {
@@ -19,7 +19,7 @@ class HeadContentBox extends Component<HeadContentBoxProps, HeadContentBoxState>
     }
 
     render() {
-        let {filters: {sort_by}, handlerFilters} = this.props;
+        let {handlerFilters} = this.props;
 
         return <div className={"head-contet-box"}>
             <span>Фильтры: </span>

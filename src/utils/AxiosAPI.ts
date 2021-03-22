@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import {Md5} from "md5-typescript";
 
 export const API = axios.create({

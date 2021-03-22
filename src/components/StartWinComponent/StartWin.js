@@ -4,10 +4,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import List from '@material-ui/core/List';
-import InputLabel from "@material-ui/core/InputLabel";
-import Switch from "@material-ui/core/Switch";
-import MainBox from "../MainBox/MainBox";
-import MainMarvelBox from "../MainMovieDbBox/MainMarvelBox";
 import ContentMovieBox from "../ContentMovieBox/ContentMovieBox";
 
 class StartWin extends Component{
@@ -30,7 +26,7 @@ class StartWin extends Component{
         }))
     }
     render() {
-        const {minimaizNavMenu, agree} = this.state;
+        const {minimaizNavMenu} = this.state;
         return (
            <div className={"wholeWindow"}>
                <div className={minimaizNavMenu ? "minNavigationMenu" : "navigationMenu"}>

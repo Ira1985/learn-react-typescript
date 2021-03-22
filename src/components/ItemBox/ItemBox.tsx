@@ -16,7 +16,7 @@ class ItemBox extends Component<ItemBoxProps>{
         return <div className={"item-box"}>
             <img src={
                 "https://image.tmdb.org/t/p/w500" + item.backdrop_path
-            } className={"image-item"}/>
+            } className={"image-item"} alt={"movie poster"}/>
             <p>{item.title}</p>
             <p>Рейтинг: {item.vote_average}</p>
         </div>;
