@@ -1,9 +1,8 @@
-import React, {MouseEvent, Component} from "react";
+import React, {Component} from "react";
 import "./footerContentBox.scss"
 
 type FooterContentBoxProps = {
-    handlerPlusePages: (e: MouseEvent<HTMLButtonElement>) => void
-    handlerMinusPages: (e: MouseEvent<HTMLButtonElement>) => void
+    handlerPages: (page: number) => void
     page: number
 }
 
@@ -17,11 +16,11 @@ class FooterContentBox extends Component<FooterContentBoxProps, FooterContentBox
     }
 
     render() {
-        let {handlerPlusePages, handlerMinusPages, page} = this.props;
+        let {handlerPages, page} = this.props;
         return <div className={"footer-contet-box"}>
-            <button type={"button"} value={"forvard"} onClick={(e) => handlerPlusePages(e)}>Вперед</button>
+            <button type={"button"} value={"forvard"} onClick={() => handlerPages(page + 1)}>Вперед</button>
             <span>{page}</span>
-            <button value={"back"} onClick={(e) => handlerMinusPages(e)}>Назад</button>
+            <button value={"back"} onClick={(e) => handlerPages(page - 1)}>Назад</button>
 
         </div>;
     }

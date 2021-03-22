@@ -1,4 +1,4 @@
-import React, {ChangeEvent, MouseEvent, Component} from "react";
+import React, {ChangeEvent, Component} from "react";
 import MainMovieDbBox from "../MainMovieDbBox/MainMarvelBox";
 import "./contentMovieBox.scss"
 import FooterContentBox from "../FootterContentBox/FooterContentBox";
@@ -31,21 +31,15 @@ class ContentMovieBox extends Component<ContentMovieBoxProps, ContentMovieBoxSta
         let newFilter = {...this.state.filters};
         newFilter[e.target.name] = e.target.value
         this.setState({
-            filters: newFilter
+            filters: newFilter,
+            page: 1
         })
     }
 
-    handlerPlusePages =(e: MouseEvent<HTMLButtonElement>) => {
-        this.setState((prevState) => ({
-            page: prevState.page + 1
-        }))
-    }
-
-    handlerMinusPages =(e: MouseEvent<HTMLButtonElement>) => {
-
-        this.setState((prevState) => ({
-            page: prevState.page - 1
-        }))
+    handlerPages =(page: number) => {
+        this.setState({
+            page
+        })
     }
 
     render() {
@@ -54,7 +48,7 @@ class ContentMovieBox extends Component<ContentMovieBoxProps, ContentMovieBoxSta
         return <div className={"content-movie-box"}>
             <HeadContentBox filters={filters} handlerFilters={this.handlerFilters} />
             <MainMovieDbBox filters={filters} page={page}/>
-            <FooterContentBox page={page} handlerPlusePages={this.handlerPlusePages} handlerMinusPages={this.handlerMinusPages}/>
+            <FooterContentBox page={page} handlerPages={this.handlerPages}/>
         </div>;
     }
 }
