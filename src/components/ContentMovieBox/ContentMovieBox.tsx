@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Component} from "react";
+import React, {ChangeEvent, MouseEvent, Component} from "react";
 import MainMovieDbBox from "../MainMovieDbBox/MainMarvelBox";
 import "./contentMovieBox.scss"
 import FooterContentBox from "../FootterContentBox/FooterContentBox";
@@ -36,9 +36,15 @@ class ContentMovieBox extends Component<ContentMovieBoxProps, ContentMovieBoxSta
         })
     }
 
-    handlerPages =(page: number) => {
+    handlerPages =(e: MouseEvent<HTMLButtonElement>) => {
+        let {page} = this.state;
+        let newPage = page;
+        if(e.currentTarget.value === "forvard")
+            ++newPage;
+        if(e.currentTarget.value === "back" && page !== 1)
+            --newPage;
         this.setState({
-            page
+            page: newPage
         })
     }
 
