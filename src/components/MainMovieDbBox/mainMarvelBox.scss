@@ -1,19 +1,22 @@
-.main-marvel-box {
-  width: 100%;
+.whole-main-marvel-box {
   height: 98%;
-  border-radius: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  overflow-x: auto;
-}
+  .main-marvel-box {
+    width: 100%;
+    height: calc(100% - 40px);
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow-x: auto;
+  }
 
-.main-marvel-box::-webkit-scrollbar {
-  width: 7px;
-  background-color: #f9f9fd;
-}
+  .main-marvel-box::-webkit-scrollbar {
+    width: 7px;
+    background-color: #f9f9fd;
+  }
 
-.main-marvel-box::-webkit-scrollbar-thumb {
-  width: 7px;
-  background-color: red;
+  .main-marvel-box::-webkit-scrollbar-thumb {
+    width: 7px;
+    background-color: red;
+  }
 }

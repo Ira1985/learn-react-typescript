@@ -36,25 +36,12 @@ class ContentMovieBox extends Component<ContentMovieBoxProps, ContentMovieBoxSta
         })
     }
 
-    handlerPages =(e: MouseEvent<HTMLButtonElement>) => {
-        let {page} = this.state;
-        let newPage = page;
-        if(e.currentTarget.value === "forvard")
-            ++newPage;
-        if(e.currentTarget.value === "back" && page !== 1)
-            --newPage;
-        this.setState({
-            page: newPage
-        })
-    }
-
     render() {
         let {filters, page} = this.state;
 
         return <div className={"content-movie-box"}>
             <HeadContentBox filters={filters} handlerFilters={this.handlerFilters} />
-            <MainMovieDbBox filters={filters} page={page}/>
-            <FooterContentBox page={page} handlerPages={this.handlerPages}/>
+            <MainMovieDbBox filters={filters}/>
         </div>;
     }
 }
