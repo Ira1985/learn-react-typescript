@@ -13,7 +13,8 @@ type MainMovieDbBoxProps = {
 
 type MainMovieDbBoxState = {
     items: Movie[] | null,
-    page: number
+    page: number,
+    total_pages: number
 }
 
 class MainMovieDbBox extends Component<MainMovieDbBoxProps, MainMovieDbBoxState>{
@@ -21,15 +22,18 @@ class MainMovieDbBox extends Component<MainMovieDbBoxProps, MainMovieDbBoxState>
         super(props);
         this.state = {
             items: null,
-            page: 1
+            page: 1,
+            total_pages: 1
         }
     }
 
     async componentDidMount() {
         let response = await movieService.getList<Movie>();
-        let results = response ? response.results : []
+        let results = response ? response.results : [];
+        let totalPages = response ? response.total_pages : 1;
         this.setState({
-            items: results
+            items: results,
+            total_pages: totalPages
         })
     }
 
@@ -68,7 +72,7 @@ class MainMovieDbBox extends Component<MainMovieDbBoxProps, MainMovieDbBoxState>
         let newPage = page;
         if(e.currentTarget.value === "forvard")
             ++newPage;
-        if(e.currentTarget.value === "back" && page !== 1)
+        if(e.currentTarget.value === "back")
             --newPage;
         this.setState({
             page: newPage
@@ -76,14 +80,14 @@ class MainMovieDbBox extends Component<MainMovieDbBoxProps, MainMovieDbBoxState>
     }
 
     render() {
-        let {items, page} = this.state;
+        let {items, page, total_pages} = this.state;
         return <div className={"whole-main-marvel-box"}>
             <div className={"main-marvel-box"}>
                 {
                     items && items.map(item => <ItemBox key={item.id} item={item}/>)
                 }
             </div>
-            <FooterContentBox handlerPages={this.handlerPages} page={page}/>
+            <FooterContentBox handlerPages={this.handlerPages} page={page} total_pages={total_pages}/>
         </div>;
     }
 }

@@ -4,6 +4,7 @@ import "./footerContentBox.scss"
 type FooterContentBoxProps = {
     handlerPages: (e: MouseEvent<HTMLButtonElement>) => void
     page: number
+    total_pages: number
 }
 
 type FooterContentBoxState = {
@@ -16,11 +17,11 @@ class FooterContentBox extends Component<FooterContentBoxProps, FooterContentBox
     }
 
     render() {
-        let {handlerPages, page} = this.props;
+        let {handlerPages, page, total_pages} = this.props;
         return <div className={"footer-contet-box"}>
             <button type={"button"} value={"forvard"} onClick={(e) => handlerPages(e)}>Вперед</button>
-            <span>{page}</span>
-            <button value={"back"} onClick={(e) => handlerPages(e)}>Назад</button>
+            <span>{page} of {total_pages}</span>
+            <button value={"back"} onClick={(e) => handlerPages(e)} disabled={page <= 1}>Назад</button>
 
         </div>;
     }
