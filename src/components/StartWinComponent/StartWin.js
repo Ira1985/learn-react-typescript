@@ -5,6 +5,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import List from '@material-ui/core/List';
 import ContentMovieBox from "../ContentMovieBox/ContentMovieBox";
+import {movieService} from "../../services/MovieService";
 
 class StartWin extends Component{
     constructor(props) {
@@ -31,7 +32,7 @@ class StartWin extends Component{
            <div className={"wholeWindow"}>
                <div className={minimaizNavMenu ? "minNavigationMenu" : "navigationMenu"}>
                    <List>
-
+                       <button onClick={() => movieService.getSessionId()}>Login</button>
                    </List>
                    <div className={"buttonMinimaizer"}>
                        <IconButton onClick={this.handlerMinNavMenu}>
