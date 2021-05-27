@@ -13,6 +13,7 @@ type ContentMovieBoxState = {
         sort_by: string | undefined
     }
 }
+type FieldsOfFilter = keyof ContentMovieBoxState['filters'];
 
 
 class ContentMovieBox extends Component<ContentMovieBoxProps, ContentMovieBoxState>{
@@ -25,40 +26,25 @@ class ContentMovieBox extends Component<ContentMovieBoxProps, ContentMovieBoxSta
         }
     }
 
+    getFieldOfFilter<O extends ContentMovieBoxState['filters'], K extends keyof O> (obj: O, value: string): K | undefined{
+        let n;
+        type c = Pick<O, K>
+        if(value in obj) {
+            n = value as K;
+        }
+        return n;
+    }
+
     handlerFilters = (e: ChangeEvent<HTMLSelectElement>) => {
         let newFilter = {...this.state.filters};
-        if(_.has(newFilter, e.target.name)) {
-            type fieldsOfFilter = keyof ContentMovieBoxState['filters'];
-            const name = e.target.name as fieldsOfFilter;
-            newFilter[e.target.name as fieldsOfFilter] = e.target.value;
+        let field = this.getFieldOfFilter(newFilter, e.target.name);
+        if(field) {
+            newFilter[field] = e.target.value;
             this.setState({
                 filters: newFilter
             })
-        } else {
-            throw Error("Unknown key")
-        }
-
-        const tree = {
-            roots: {
-                trunk: {
-                    branch: 'a leaf',
-                    hollow: 'a squirrel',
-                },
-            },
-            country: {
-                city: 'a citizen',
-            },
-            'Internet': {
-                'Hexlet.io': {
-                    'Frontend JS': {
-                        'Trees': 'this lesson'
-                    },
-                    'Blog': 'this post',
-                },
-            },
-        };
-
-        _.keys(tree).flatMap(key => console.log(key))
+        } else
+            throw Error("Unknown key " + e.target.name)
     }
 
     render() {
